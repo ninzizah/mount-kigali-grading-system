@@ -1,4 +1,5 @@
 import { Question, GradingResult, StudentInfo } from '../types';
+import { huggingFaceService } from '../services/huggingface';
 
 // Knowledge base for common questions and their correct answers
 const knowledgeBase: { [key: string]: string } = {
@@ -233,18 +234,41 @@ export const parseLecturerFile = (content: string): Question[] => {
 };
 
 export const simulateLecturerAIAnalysis = async (questions: Question[]): Promise<Question[]> => {
-  // Simulate AI processing delay
-  await new Promise(resolve => setTimeout(resolve, 2500));
-  
-  // Enhanced AI analysis using knowledge base and pattern matching
-  return questions.map(question => {
-    const correctAnswer = findCorrectAnswer(question.text, question.options);
+  try {
+    // Check if Hugging Face API is available
+    const isAPIHealthy = await huggingFaceService.checkAPIHealth();
     
-    return {
-      ...question,
-      correctAnswer
-    };
-  });
+    if (isAPIHealthy) {
+      // Use real Hugging Face AI analysis
+      const analysisRequests = questions.map(q => ({
+        question: q.text,
+        options: q.options
+      }));
+      
+      const analysisResults = await huggingFaceService.analyzeMultipleQuestions(analysisRequests);
+      
+      return questions.map((question, index) => ({
+        ...question,
+        correctAnswer: analysisResults[index]?.correctAnswer || findCorrectAnswer(question.text, question.options)
+      }));
+    } else {
+      throw new Error('API not available');
+    }
+  } catch (error) {
+    console.error('Hugging Face API failed, using fallback analysis:', error);
+    
+    // Fallback to knowledge base analysis
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    return questions.map(question => {
+      const correctAnswer = findCorrectAnswer(question.text, question.options);
+      
+      return {
+        ...question,
+        correctAnswer
+      };
+    });
+  }
 };
 
 export const gradeQuestions = (questions: Question[], studentInfo?: StudentInfo): GradingResult => {

@@ -62,7 +62,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onQuestionsAnalyzed }) => {
           </div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">AI is Analyzing Your Questions</h3>
           <p className="text-gray-600 mb-6">
-            Our powerful AI is reading each question and determining the correct answers. This may take a moment...
+            Our Hugging Face AI is analyzing each question and determining the correct answers using advanced language models...
           </p>
           <div className="flex items-center justify-center space-x-2">
             <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />

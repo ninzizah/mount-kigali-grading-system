@@ -85,7 +85,7 @@ const GradingUpload: React.FC<GradingUploadProps> = ({ onGradingComplete }) => {
           </div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">AI is Analyzing the Paper</h3>
           <p className="text-gray-600 mb-6">
-            Our advanced AI is reading each question and determining the correct answers based on context and knowledge...
+            Our Hugging Face AI is analyzing each question and determining the correct answers using state-of-the-art language models...
           </p>
           <div className="flex items-center justify-center space-x-2">
             <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -175,9 +175,9 @@ const GradingUpload: React.FC<GradingUploadProps> = ({ onGradingComplete }) => {
             <div className="flex items-center">
               <Brain className="w-5 h-5 text-blue-500 mr-3" />
               <div>
-                <p className="text-blue-800 font-medium text-sm">AI-Powered Grading</p>
+                <p className="text-blue-800 font-medium text-sm">Hugging Face AI-Powered Grading</p>
                 <p className="text-blue-600 text-xs">
-                  Advanced AI analyzes each question to determine correct answers and grade automatically.
+                  Advanced Hugging Face models analyze each question to determine correct answers and grade automatically.
                 </p>
               </div>
             </div>
